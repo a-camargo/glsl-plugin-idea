@@ -136,8 +136,9 @@ object GlslBuiltinUtils {
         if (!::defaultShaderVariables.isInitialized || !::shaderVariables.isInitialized) {
             setShaderVariables()
         }
-        fun isAinB(a: String, b: Map<String, GlslNamedElement>?): Boolean = if (b != null) a.lowercase() in b.keys else false
+        fun isAinB(a: String, b: Map<String, GlslNamedElement>?): Boolean = if (b != null) a in b.keys else false
         val shaderType = getShaderType(fileExtension)
+
         return when (shaderType) {
             VERT -> isAinB(variable, shaderVariables[shaderType])
             GEOM -> isAinB(variable, shaderVariables[shaderType])
@@ -145,6 +146,7 @@ object GlslBuiltinUtils {
             TESC -> isAinB(variable, shaderVariables[shaderType])
             TESE -> isAinB(variable, shaderVariables[shaderType])
             COMP -> isAinB(variable, shaderVariables[shaderType])
+            GKSL -> (isAinB(variable, shaderVariables[VERT]) || isAinB(variable, shaderVariables[FRAG]) || isAinB(variable, shaderVariables[COMP]))
             GLSL -> isAinB(variable, defaultShaderVariables)
         }
     }

@@ -24,6 +24,7 @@ import glsl.plugin.code.highlighting.GlslTextAttributes.NUMBERS_TEXT_ATTR
 import glsl.plugin.code.highlighting.GlslTextAttributes.OPERATORS_TEXT_ATTR
 import glsl.plugin.code.highlighting.GlslTextAttributes.PREPROCESSOR_TEXT_ATTR
 import glsl.plugin.code.highlighting.GlslTextAttributes.STRING_TEXT_ATTR
+import glsl.plugin.code.highlighting.GlslTextAttributes.BUILTIN_GLOBAL_CONSTANTS
 import glsl.plugin.language.GlslLexerAdapter
 
 
@@ -52,11 +53,13 @@ class GlslSyntaxHighlighter : SyntaxHighlighterBase() {
             GlslTypes.MULTILINE_COMMENT -> MULTILINE_COMMENT_TEXT_ATTR
             GlslTypes.STRING_LITERAL -> STRING_TEXT_ATTR
             GlslTypes.BOOLCONSTANT -> BOOLEAN_TEXT_ATTR
+            GlslTypes.TYPE_SPECIFIER_BUILTIN -> BUILTIN_GLOBAL_CONSTANTS
             in GlslTokenSets.ALL_OPERATORS -> OPERATORS_TEXT_ATTR
             in GlslTokenSets.PREPROCESSORS -> PREPROCESSOR_TEXT_ATTR
             in GlslTokenSets.NUMBER_SET -> NUMBERS_TEXT_ATTR
             in GlslTokenSets.KEYWORDS -> KEYWORD_TEXT_ATTR
             in GlslTokenSets.BUILTIN_TYPES -> BUILTIN_TYPE_TEXT_ATTR
+            in GlslTokenSets.GKSL_CONSTANTS -> BUILTIN_GLOBAL_CONSTANTS
             TokenType.BAD_CHARACTER -> BAD_CHARACTER_TEXT_ATTR
             else -> null
         }

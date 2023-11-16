@@ -108,6 +108,7 @@ class GlslReference(private val element: GlslIdentifierImpl, textRange: TextRang
                 statementPrevSibling = getPrevSiblingOfType(statementPrevSibling, GlslStatement::class.java)
             }
             var externalDeclaration = getParentOfType(element, GlslExternalDeclaration::class.java)
+            lookupInInclude(externalDeclaration)
             while (externalDeclaration != null) {
                 externalDeclaration = getPrevSiblingOfType(externalDeclaration, GlslExternalDeclaration::class.java)
                 val declaration = externalDeclaration?.declaration
@@ -146,6 +147,26 @@ class GlslReference(private val element: GlslIdentifierImpl, textRange: TextRang
         while (edPrevSibling != null) {
             lookupInExternalDeclaration(edPrevSibling)
             edPrevSibling = getPrevSiblingOfType(edPrevSibling, GlslExternalDeclaration::class.java)
+        }
+
+        lookupInInclude(externalDeclaration)
+    }
+
+    /**
+     *
+     */
+    private fun lookupInInclude(externalDeclaration: GlslExternalDeclaration?) {
+        if (externalDeclaration == null) return
+
+        var parent = externalDeclaration.getParent()
+        if (parent !is GlslGkslInclude)
+        {
+            var include = getPrevSiblingOfType(parent, GlslGkslInclude::class.java)
+            var children = PsiTreeUtil.getChildrenOfType(include, GlslExternalDeclaration::class.java)
+
+            children?.forEach {
+                lookupInExternalDeclaration(it)
+            }
         }
     }
 

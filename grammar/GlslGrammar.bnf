@@ -522,6 +522,50 @@
         FCOOPMATNV="fcoopmatNV"
         ICOOPMATNV="icoopmatNV"
         UCOOPMATNV="ucoopmatNV"
+        SHADER="Shader"
+        PROGRAM="Program"
+        ENDPROGRAM="EndProgram"
+        INCLUDE="Include"
+        ENDINCLUDE="EndInclude"
+        VERTEX="Vertex"
+        FRAGMENT="Fragment"
+        COMPUTE="Compute"
+        RENDERSTATE="RenderState"
+        ZWRITE="ZWrite"
+        ZTEST="ZTest"
+        CULL="Cull"
+        BLEND="Blend"
+        BLENDOP="BlendOp"
+        NEVER="Never"
+        LESS="Less"
+        GREATER="Greater"
+        LEQUAL="LEqual"
+        GEQUAL="GEqual"
+        EQUAL_KW="Equal"
+        NOTEQUAL="NotEqual"
+        ALWAYS="Always"
+        FRONT="Front"
+        BACK="Back"
+        ZERO="Zero"
+        ONE="One"
+        SRCCOLOR="SrcColor"
+        SRCALPHA="SrcAlpha"
+        DSTCOLOR="DstColor"
+        DSTALPHA="DstAlpha"
+        ONEMINUSSRCCOLOR="OneMinusSrcColor"
+        ONEMINUSSRCALPHA="OneMinusSrcAlpha"
+        ONEMINUSDSTCOLOR="OneMinusDstColor"
+        ONEMINUSDSTALPHA="OneMinusDstAlpha"
+        SRCALPHASATURATE="SrcAlphaSaturate"
+        ADD="Add"
+        SUB="Sub"
+        REVSUB="RevSub"
+        MIN="Min"
+        MAX="Max"
+        FALSE="False"
+        OFF="Off"
+        TRUE="True"
+        ON="On"
         FLOATCONSTANT="regexp:((\d+[.]\d+)|(\d+[.])|([.]\d+))f?"
         UINTCONSTANT="regexp:(0x[\da-fA-F]+|\d+)u|U"
         INTCONSTANT="regexp:0x[\da-fA-F]+|\d+"
@@ -531,10 +575,45 @@
     ]
 }
 
-root ::= translation_unit*
+root ::= gksl_shader | external_declaration*
 
-private translation_unit
-    ::= external_declaration
+private gksl_shader ::= SHADER STRING_LITERAL LEFT_BRACE gksl_code* RIGHT_BRACE
+private gksl_code ::= gksl_program | gksl_include | gksl_rstate
+
+private translation_unit ::= external_declaration* { recoverWhile=gksl_block_recover }
+private gksl_block_recover ::= (!ENDPROGRAM !ENDINCLUDE)
+
+gksl_program ::= (PROGRAM gksl_stage) translation_unit ENDPROGRAM
+gksl_include ::= INCLUDE translation_unit ENDINCLUDE
+gksl_rstate ::= RENDERSTATE LEFT_BRACE gksl_rstatements RIGHT_BRACE
+
+private gksl_rstatements ::= gksl_rstatement* { recoverWhile=gksl_rstate_recover }
+private gksl_rstate_recover ::= !(RIGHT_BRACE)
+private gksl_rstatement
+    ::= ZWRITE gksl_bool
+    |   ZTEST (gksl_compareop | gksl_bool)
+    |   CULL (gksl_cull_mode | gksl_bool)
+    |   BLEND (FALSE | OFF)
+    |   BLEND gksl_blend_factor gksl_blend_factor (COMMA gksl_blend_factor gksl_blend_factor)?
+    |   BLENDOP gksl_blendop (COMMA gksl_blendop)?
+
+private gksl_stage ::= VERTEX | FRAGMENT | COMPUTE
+private gksl_cull_mode ::= FRONT | BACK
+private gksl_bool ::= FALSE | OFF | TRUE | ON
+private gksl_blendop ::= ADD | SUB | REVSUB | MIN | MAX
+private gksl_compareop ::= NEVER | LESS | GREATER | LEQUAL | GEQUAL | EQUAL_KW | NOTEQUAL | ALWAYS
+private gksl_blend_factor
+    ::= ZERO
+    |   ONE
+    |   SRCCOLOR
+    |   SRCALPHA
+    |   DSTCOLOR
+    |   DSTALPHA
+    |   ONEMINUSSRCCOLOR
+    |   ONEMINUSSRCALPHA
+    |   ONEMINUSDSTCOLOR
+    |   ONEMINUSDSTALPHA
+    |   SRCALPHASATURATE
 
 external_declaration
     ::= pp_statement

@@ -567,6 +567,50 @@ MACRO_VERSION="__VERSION__"
   "icoopmatNV"                     { return ICOOPMATNV; }
   "ucoopmatNV"                     { return UCOOPMATNV; }
 
+  "Shader"                         { return SHADER; }
+  "Program"                        { return PROGRAM; }
+  "EndProgram"                     { return ENDPROGRAM; }
+  "Include"                        { return INCLUDE; }
+  "EndInclude"                     { return ENDINCLUDE; }
+  "Vertex"                         { return VERTEX; }
+  "Fragment"                       { return FRAGMENT; }
+  "Compute"                        { return COMPUTE; }
+  "RenderState"                    { return RENDERSTATE; }
+  "ZWrite"                         { return ZWRITE; }
+  "ZTest"                          { return ZTEST; }
+  "Cull"                           { return CULL; }
+  "Blend"                          { return BLEND; }
+  "BlendOp"                        { return BLENDOP; }
+  "Never"                          { return NEVER; }
+  "Less"                           { return LESS; }
+  "Greater"                        { return GREATER; }
+  "LEqual"                         { return LEQUAL; }
+  "GEqual"                         { return GEQUAL; }
+  "Equal"                          { return EQUAL_KW; }
+  "NotEqual"                       { return NOTEQUAL; }
+  "Always"                         { return ALWAYS; }
+  "Front"                          { return FRONT; }
+  "Back"                           { return BACK; }
+  "Zero"                           { return ZERO; }
+  "One"                            { return ONE; }
+  "SrcColor"                       { return SRCCOLOR; }
+  "SrcAlpha"                       { return SRCALPHA; }
+  "DstColor"                       { return DSTCOLOR; }
+  "DstAlpha"                       { return DSTALPHA; }
+  "OneMinusSrcColor"               { return ONEMINUSSRCCOLOR; }
+  "OneMinusSrcAlpha"               { return ONEMINUSSRCALPHA; }
+  "OneMinusDstColor"               { return ONEMINUSDSTCOLOR; }
+  "OneMinusDstAlpha"               { return ONEMINUSDSTALPHA; }
+  "SrcAlphaSaturate"               { return SRCALPHASATURATE; }
+  "Add"                            { return ADD; }
+  "Sub"                            { return SUB; }
+  "RevSub"                         { return REVSUB; }
+  "Min"                            { return MIN; }
+  "Max"                            { return MAX; }
+  "False"                          { return FALSE; }
+  "Off"                            { return OFF; }
+  "True"                           { return TRUE; }
+  "On"                             { return ON; }
 
   {FLOATCONSTANT}                  { return FLOATCONSTANT; }
   {INTCONSTANT}                    { return INTCONSTANT; }

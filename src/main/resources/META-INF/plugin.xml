@@ -10,7 +10,7 @@
         <fileType                       name="Glsl File"
                                         implementationClass="glsl.plugin.language.GlslFileType"
                                         language="Glsl"
-                                        extensions="glsl;vert;vsh;tesc;tese;geom;gsh;frag;fsh;comp;"/>
+                                        extensions="glsl;gksl;vert;vsh;tesc;tese;geom;gsh;frag;fsh;comp;"/>
 
         <!--  Language  -->
         <lang.parserDefinition          language="Glsl"
