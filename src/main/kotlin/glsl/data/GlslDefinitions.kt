@@ -7,7 +7,7 @@ import glsl.GlslTypes.*
  *
  */
 enum class ShaderType {
-    GLSL, VERT, TESC, TESE, GEOM, FRAG, COMP
+    GLSL, GKSL, VERT, TESC, TESE, GEOM, FRAG, COMP
 }
 
 object GlslDefinitions {

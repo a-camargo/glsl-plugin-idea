@@ -178,6 +178,7 @@ object GlslBuiltinUtils {
             TESC -> isAinB(variable, shaderVariables[shaderType])
             TESE -> isAinB(variable, shaderVariables[shaderType])
             COMP -> isAinB(variable, shaderVariables[shaderType])
+            GKSL -> (isAinB(variable, shaderVariables[VERT]) || isAinB(variable, shaderVariables[FRAG]) || isAinB(variable, shaderVariables[COMP]))
             GLSL -> isAinB(variable, defaultShaderVariables)
         }
     }
