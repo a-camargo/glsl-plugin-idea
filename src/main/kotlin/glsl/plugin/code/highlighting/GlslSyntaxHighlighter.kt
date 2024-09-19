@@ -62,7 +62,7 @@ class GlslSyntaxHighlighter : SyntaxHighlighterBase() {
             GlslTypes.MACRO_OBJECT -> MACRO_OBJECT_NAME_ATTR
             GlslTypes.MACRO_FUNCTION -> MACRO_FUNC_NAME_ATTR
             GlslTypes.MACRO_FUNC_PARAM -> FUNC_PARAM_TEXT_ATTR
-            GlslTypes.TYPE_SPECIFIER_BUILTIN -> BUILTIN_GLOBAL_CONSTANTS
+            GlslTypes.BUILTIN_TYPE_REST -> BUILTIN_GLOBAL_CONSTANTS
             in GlslTokenSets.ALL_OPERATORS -> OPERATORS_TEXT_ATTR
             in GlslTokenSets.PREPROCESSORS -> PREPROCESSOR_TEXT_ATTR
             in GlslTokenSets.NUMBER_SET -> NUMBERS_TEXT_ATTR

@@ -4,6 +4,7 @@ import com.intellij.openapi.util.TextRange
 import com.intellij.psi.PsiElement
 import com.intellij.psi.impl.source.resolve.ResolveCache
 import com.intellij.psi.impl.source.resolve.ResolveCache.AbstractResolver
+import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.PsiTreeUtil.getParentOfType
 import com.intellij.psi.util.PsiTreeUtil.getPrevSiblingOfType
 import com.intellij.psi.util.childrenOfType
@@ -102,6 +103,8 @@ class GlslVariableReference(private val element: GlslVariable, textRange: TextRa
             lookupInExternalDeclaration(prevSibling)
             prevSibling = getPrevSiblingOfType(prevSibling, GlslExternalDeclaration::class.java)
         }
+
+        lookupInIncludeBlock(externalDeclaration)
     }
 
     /**
@@ -261,6 +264,24 @@ class GlslVariableReference(private val element: GlslVariable, textRange: TextRa
         lookupInIncludeDeclaration(ppStatement.ppIncludeDeclaration)
         findReferenceInElement(ppStatement.ppDefineObject)
         findReferenceInElement(ppStatement.ppDefineFunction)
+    }
+
+    /**
+     *
+     */
+    private fun lookupInIncludeBlock(externalDeclaration: GlslExternalDeclaration?) {
+        if (externalDeclaration == null) return
+
+        val parent = externalDeclaration.parent
+        if (parent !is GlslGkslInclude)
+        {
+            val include = getPrevSiblingOfType(parent, GlslGkslInclude::class.java)
+            val children = PsiTreeUtil.getChildrenOfType(include, GlslExternalDeclaration::class.java)
+
+            children?.forEach {
+                lookupInExternalDeclaration(it)
+            }
+        }
     }
 
     /**
