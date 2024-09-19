@@ -2,6 +2,7 @@ package glsl.data
 
 import com.intellij.psi.TokenType.WHITE_SPACE
 import com.intellij.psi.tree.TokenSet
+import glsl.GlslTypes
 import glsl.GlslTypes.*
 
 /**
@@ -89,6 +90,42 @@ object GlslTokenSets {
         MACRO_VERSION
     )
 
+    val GKSL_CONSTANTS = TokenSet.create(
+        NEVER,
+        LESS,
+        GREATER,
+        LEQUAL,
+        GEQUAL,
+        EQUAL_KW,
+        NOTEQUAL,
+        ALWAYS,
+        FRONT,
+        BACK,
+        ZERO,
+        ONE,
+        SRCCOLOR,
+        SRCALPHA,
+        DSTCOLOR,
+        DSTALPHA,
+        ONEMINUSSRCCOLOR,
+        ONEMINUSSRCALPHA,
+        ONEMINUSDSTCOLOR,
+        ONEMINUSDSTALPHA,
+        SRCALPHASATURATE,
+        ADD,
+        SUB,
+        REVSUB,
+        MIN,
+        MAX,
+        FALSE,
+        OFF,
+        TRUE,
+        ON,
+        VERTEX,
+        FRAGMENT,
+        COMPUTE
+    )
+
     val KEYWORDS = TokenSet.create(
         BREAK,
         CONTINUE,
@@ -173,6 +210,17 @@ object GlslTokenSets {
         SPIRV_STORAGE_CLASS,
         SPIRV_BY_REFERENCE,
         SPIRV_LITERAL,
+        SHADER,
+        PROGRAM,
+        ENDPROGRAM,
+        INCLUDE,
+        ENDINCLUDE,
+        RENDERSTATE,
+        ZWRITE,
+        ZTEST,
+        CULL,
+        BLEND,
+        BLENDOP,
     )
 
     val TYPE_QUALIFIERS = TokenSet.create(
